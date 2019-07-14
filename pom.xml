@@ -10,6 +10,9 @@
     <modules>
         <module>yuehu_common</module>
         <module>yuehu_base</module>
+        <module>yuehu_recruit</module>
+        <module>yuehu_qa</module>
+        <module>yuehu_article</module>
     </modules>
     <packaging>pom</packaging>
 
