@@ -13,6 +13,7 @@
         <module>yuehu_recruit</module>
         <module>yuehu_qa</module>
         <module>yuehu_article</module>
+        <module>yuehu_gathering</module>
     </modules>
     <packaging>pom</packaging>
 
