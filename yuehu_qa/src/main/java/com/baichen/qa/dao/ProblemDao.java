@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 /**
  * 数据访问接口
- * @author Administrator
+ * @author  baichen
  *
  */
 public interface ProblemDao extends JpaRepository<Problem,String>,JpaSpecificationExecutor<Problem>{
