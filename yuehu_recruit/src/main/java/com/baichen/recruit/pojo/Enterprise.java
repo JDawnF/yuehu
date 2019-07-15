@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * 实体类
- * @author Administrator
+ * @author  baichen
  */
 @Entity
 @Table(name = "tb_enterprise")

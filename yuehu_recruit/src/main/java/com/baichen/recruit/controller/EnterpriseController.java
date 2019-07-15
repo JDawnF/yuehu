@@ -21,7 +21,7 @@ import com.baichen.recruit.service.EnterpriseService;
 
 /**
  * 控制器层
- * @author Administrator
+ * @author  baichen
  */
 @RestController
 @CrossOrigin

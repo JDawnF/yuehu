@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * 数据访问接口
- * @author Administrator
+ * @author  baichen
  *
  */
 public interface EnterpriseDao extends JpaRepository<Enterprise,String>,JpaSpecificationExecutor<Enterprise>{

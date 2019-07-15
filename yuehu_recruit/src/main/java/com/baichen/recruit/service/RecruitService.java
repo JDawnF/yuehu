@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * 服务层
  *
- * @author Administrator
+ * @author  baichen
  */
 @Service
 public class RecruitService {
