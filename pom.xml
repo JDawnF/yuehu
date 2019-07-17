@@ -14,6 +14,7 @@
         <module>yuehu_qa</module>
         <module>yuehu_article</module>
         <module>yuehu_gathering</module>
+        <module>yuehu_spit</module>
     </modules>
     <packaging>pom</packaging>
 
