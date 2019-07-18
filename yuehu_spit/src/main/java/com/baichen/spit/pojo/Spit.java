@@ -19,7 +19,7 @@ public class Spit implements Serializable {
     private Integer share;
     private Integer comment;
     private String state;
-    private String parentid;//父id,可以多次吐槽
+    private String parentid;    //父id,可以多次吐槽
 
     public String getId() {
         return id;
