@@ -2,6 +2,7 @@ package com.baichen.base.controller;
 
 import com.baichen.base.pojo.Label;
 import com.baichen.base.service.LabelService;
+import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
@@ -33,7 +34,7 @@ public class LabelController {
     @RequestMapping(method = RequestMethod.POST)
     public Result add(@RequestBody Label label) {
         labelService.add(label);
-        return new Result(true, StatusCode.OK, "添加成功");
+        return new Result(true, StatusCode.OK, Contants.ADD_SUCCESS);
     }
 
     /**
@@ -68,7 +69,7 @@ public class LabelController {
     public Result update(@RequestBody Label label, @PathVariable String labelId) {
         label.setId(labelId);
         labelService.update(label);
-        return new Result(true, StatusCode.OK, "修改成功");
+        return new Result(true, StatusCode.OK, Contants.UPDATE_SUCCESS);
     }
 
     /**
@@ -80,7 +81,7 @@ public class LabelController {
     @RequestMapping(value = "/{labelId}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String labelId) {
         labelService.delete(labelId);
-        return new Result(true, StatusCode.OK, "删除成功");
+        return new Result(true, StatusCode.OK, Contants.DELETE_SUCCESS);
     }
 
     /**
@@ -92,7 +93,7 @@ public class LabelController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Result search(@RequestBody Map searchMap) {
         List<Label> labelList = labelService.search(searchMap);
-        return new Result(true, StatusCode.OK, "查询成功", labelList);
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, labelList);
     }
 
     /**
@@ -105,7 +106,7 @@ public class LabelController {
     public Result searchPage(@PathVariable int page, @PathVariable int size, @RequestBody Map searchMap) {
         Page<Label> labelList = labelService.search(searchMap, page, size);
         // 返回总记录数和总页数
-        return new Result(true, StatusCode.OK, "查询成功", new PageResult<Label>(labelList.getTotalElements(), labelList.getContent()));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, new PageResult<Label>(labelList.getTotalElements(), labelList.getContent()));
     }
 
 }

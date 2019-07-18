@@ -3,6 +3,7 @@ package com.baichen.recruit.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
@@ -40,7 +41,7 @@ public class RecruitController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
-        return new Result(true, StatusCode.OK, "查询成功", recruitService.findAll());
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, recruitService.findAll());
     }
 
     /**
@@ -51,7 +52,7 @@ public class RecruitController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result findById(@PathVariable String id) {
-        return new Result(true, StatusCode.OK, "查询成功", recruitService.findById(id));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, recruitService.findById(id));
     }
 
 
@@ -66,7 +67,7 @@ public class RecruitController {
     @RequestMapping(value = "/search/{page}/{size}", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<Recruit> pageList = recruitService.findSearch(searchMap, page, size);
-        return new Result(true, StatusCode.OK, "查询成功", new PageResult<Recruit>(pageList.getTotalElements(), pageList.getContent()));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, new PageResult<Recruit>(pageList.getTotalElements(), pageList.getContent()));
     }
 
     /**
@@ -77,7 +78,7 @@ public class RecruitController {
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap) {
-        return new Result(true, StatusCode.OK, "查询成功", recruitService.findSearch(searchMap));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, recruitService.findSearch(searchMap));
     }
 
     /**
@@ -88,7 +89,7 @@ public class RecruitController {
     @RequestMapping(method = RequestMethod.POST)
     public Result add(@RequestBody Recruit recruit) {
         recruitService.add(recruit);
-        return new Result(true, StatusCode.OK, "增加成功");
+        return new Result(true, StatusCode.OK, Contants.ADD_SUCCESS);
     }
 
     /**
@@ -100,7 +101,7 @@ public class RecruitController {
     public Result update(@RequestBody Recruit recruit, @PathVariable String id) {
         recruit.setId(id);
         recruitService.update(recruit);
-        return new Result(true, StatusCode.OK, "修改成功");
+        return new Result(true, StatusCode.OK, Contants.UPDATE_SUCCESS);
     }
 
     /**
@@ -111,7 +112,7 @@ public class RecruitController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
         recruitService.deleteById(id);
-        return new Result(true, StatusCode.OK, "删除成功");
+        return new Result(true, StatusCode.OK, Contants.DELETE_SUCCESS);
     }
 
 
@@ -122,7 +123,7 @@ public class RecruitController {
      */
     @RequestMapping(value = "/search/recommend", method = RequestMethod.GET)
     public Result recommend() {
-        return new Result(true, StatusCode.OK, "查询成功", recruitService.findTop4ByStateOrderByCreatetimeDesc());
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, recruitService.findTop4ByStateOrderByCreatetimeDesc());
     }
 
 
@@ -133,7 +134,7 @@ public class RecruitController {
      */
     @RequestMapping(value = "/search/newlist", method = RequestMethod.GET)
     public Result newlist() {
-        return new Result(true, StatusCode.OK, "最新职位", recruitService.newlist());
+        return new Result(true, StatusCode.OK, Contants.NEW_RECRUIT, recruitService.newlist());
     }
 
 }

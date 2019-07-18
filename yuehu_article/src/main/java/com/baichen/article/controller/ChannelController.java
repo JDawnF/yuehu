@@ -3,6 +3,7 @@ import java.util.Map;
 
 import com.baichen.article.pojo.Channel;
 import com.baichen.article.service.ChannelService;
+import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
@@ -35,7 +36,7 @@ public class ChannelController {
 	 */
 	@RequestMapping(method= RequestMethod.GET)
 	public Result findAll(){
-		return new Result(true, StatusCode.OK,"查询成功",channelService.findAll());
+		return new Result(true, StatusCode.OK,Contants.SEARCH_SUCCESS,channelService.findAll());
 	}
 	
 	/**
@@ -45,7 +46,7 @@ public class ChannelController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
-		return new Result(true,StatusCode.OK,"查询成功",channelService.findById(id));
+		return new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,channelService.findById(id));
 	}
 
 
@@ -59,7 +60,7 @@ public class ChannelController {
 	@RequestMapping(value="/search/{page}/{size}",method=RequestMethod.POST)
 	public Result findSearch(@RequestBody Map searchMap , @PathVariable int page, @PathVariable int size){
 		Page<Channel> pageList = channelService.findSearch(searchMap, page, size);
-		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Channel>(pageList.getTotalElements(), pageList.getContent()) );
+		return  new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,  new PageResult<Channel>(pageList.getTotalElements(), pageList.getContent()) );
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class ChannelController {
      */
     @RequestMapping(value="/search",method = RequestMethod.POST)
     public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",channelService.findSearch(searchMap));
+        return new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,channelService.findSearch(searchMap));
     }
 	
 	/**
@@ -79,7 +80,7 @@ public class ChannelController {
 	@RequestMapping(method=RequestMethod.POST)
 	public Result add(@RequestBody Channel channel  ){
 		channelService.add(channel);
-		return new Result(true,StatusCode.OK,"增加成功");
+		return new Result(true,StatusCode.OK,Contants.ADD_SUCCESS);
 	}
 	
 	/**
@@ -90,7 +91,7 @@ public class ChannelController {
 	public Result update(@RequestBody Channel channel, @PathVariable String id ){
 		channel.setId(id);
 		channelService.update(channel);		
-		return new Result(true,StatusCode.OK,"修改成功");
+		return new Result(true,StatusCode.OK, Contants.UPDATE_SUCCESS);
 	}
 	
 	/**
@@ -100,7 +101,7 @@ public class ChannelController {
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
 		channelService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
+		return new Result(true,StatusCode.OK,Contants.DELETE_SUCCESS);
 	}
 	
 }

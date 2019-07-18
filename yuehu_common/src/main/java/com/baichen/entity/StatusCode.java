@@ -12,4 +12,5 @@ public class StatusCode {
     public static final int ACCESSERROR = 20003;//权限不足
     public static final int REMOTEERROR = 20004;//远程调用失败
     public static final int REPERROR = 20005;//重复操作
+    public static final int REPEATE_ERROR=2006; // 重复点赞
 }

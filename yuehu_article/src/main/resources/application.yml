@@ -14,3 +14,7 @@ spring:
     generate-ddl: true
   redis:
     host: 127.0.0.1
+  data:
+    mongodb:
+      host: localhost
+      database: recruitdb

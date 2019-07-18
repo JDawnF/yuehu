@@ -3,6 +3,7 @@ package com.baichen.article.controller;
 
 import com.baichen.article.pojo.Article;
 import com.baichen.article.service.ArticleService;
+import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
@@ -33,7 +34,7 @@ public class ArticleController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
-        return new Result(true, StatusCode.OK, "查询成功", articleService.findAll());
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, articleService.findAll());
     }
 
     /**
@@ -44,7 +45,7 @@ public class ArticleController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result findById(@PathVariable String id) {
         Article article = articleService.findById(id);
-        return new Result(true, StatusCode.OK, "查询成功", article);
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, article);
     }
 
 
@@ -59,7 +60,7 @@ public class ArticleController {
     @RequestMapping(value = "/search/{page}/{size}", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<Article> pageList = articleService.findSearch(searchMap, page, size);
-        return new Result(true, StatusCode.OK, "查询成功", new PageResult<Article>(pageList.getTotalElements(), pageList.getContent()));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, new PageResult<Article>(pageList.getTotalElements(), pageList.getContent()));
     }
 
     /**
@@ -70,7 +71,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap) {
-        return new Result(true, StatusCode.OK, "查询成功", articleService.findSearch(searchMap));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, articleService.findSearch(searchMap));
     }
 
     /**
@@ -81,7 +82,7 @@ public class ArticleController {
     @RequestMapping(method = RequestMethod.POST)
     public Result add(@RequestBody Article article) {
         articleService.add(article);
-        return new Result(true, StatusCode.OK, "增加成功");
+        return new Result(true, StatusCode.OK, Contants.ADD_SUCCESS);
     }
 
     /**
@@ -93,7 +94,7 @@ public class ArticleController {
     public Result update(@RequestBody Article article, @PathVariable String id) {
         article.setId(id);
         articleService.update(article);
-        return new Result(true, StatusCode.OK, "修改成功");
+        return new Result(true, StatusCode.OK, Contants.UPDATE_SUCCESS);
     }
 
     /**
@@ -104,7 +105,7 @@ public class ArticleController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
         articleService.deleteById(id);
-        return new Result(true, StatusCode.OK, "删除成功");
+        return new Result(true, StatusCode.OK, Contants.DELETE_SUCCESS);
     }
 
 
@@ -117,7 +118,7 @@ public class ArticleController {
     @RequestMapping(value = "/examine/{articleId}", method = RequestMethod.PUT)
     public Result examine(@PathVariable String articleId) {
         articleService.examine(articleId);
-        return new Result(true, StatusCode.OK, "审核通过");
+        return new Result(true, StatusCode.OK, Contants.EXAMINE_SUCCESS);
     }
 
 
@@ -130,7 +131,7 @@ public class ArticleController {
     @RequestMapping(value = "/thumbup/{articleId}", method = RequestMethod.PUT)
     public Result thumbup(@PathVariable String articleId) {
         articleService.thumbup(articleId);
-        return new Result(true, StatusCode.OK, "文章点赞");
+        return new Result(true, StatusCode.OK, Contants.THUMBUP_SUCCESS);
     }
 
     /**

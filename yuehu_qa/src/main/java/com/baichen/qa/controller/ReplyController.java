@@ -1,5 +1,6 @@
 package com.baichen.qa.controller;
 
+import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
@@ -30,7 +31,7 @@ public class ReplyController {
 	 */
 	@RequestMapping(method= RequestMethod.GET)
 	public Result findAll(){
-		return new Result(true, StatusCode.OK,"查询成功",replyService.findAll());
+		return new Result(true, StatusCode.OK,Contants.SEARCH_SUCCESS,replyService.findAll());
 	}
 	
 	/**
@@ -40,7 +41,7 @@ public class ReplyController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
-		return new Result(true,StatusCode.OK,"查询成功",replyService.findById(id));
+		return new Result(true,StatusCode.OK, Contants.SEARCH_SUCCESS,replyService.findById(id));
 	}
 
 
@@ -54,7 +55,7 @@ public class ReplyController {
 	@RequestMapping(value="/search/{page}/{size}",method=RequestMethod.POST)
 	public Result findSearch(@RequestBody Map searchMap , @PathVariable int page, @PathVariable int size){
 		Page<Reply> pageList = replyService.findSearch(searchMap, page, size);
-		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Reply>(pageList.getTotalElements(), pageList.getContent()) );
+		return  new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,  new PageResult<Reply>(pageList.getTotalElements(), pageList.getContent()) );
 	}
 
 	/**
@@ -64,7 +65,7 @@ public class ReplyController {
      */
     @RequestMapping(value="/search",method = RequestMethod.POST)
     public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",replyService.findSearch(searchMap));
+        return new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,replyService.findSearch(searchMap));
     }
 	
 	/**
@@ -74,7 +75,7 @@ public class ReplyController {
 	@RequestMapping(method=RequestMethod.POST)
 	public Result add(@RequestBody Reply reply  ){
 		replyService.add(reply);
-		return new Result(true,StatusCode.OK,"增加成功");
+		return new Result(true,StatusCode.OK,Contants.ADD_SUCCESS);
 	}
 	
 	/**
@@ -85,7 +86,7 @@ public class ReplyController {
 	public Result update(@RequestBody Reply reply, @PathVariable String id ){
 		reply.setId(id);
 		replyService.update(reply);		
-		return new Result(true,StatusCode.OK,"修改成功");
+		return new Result(true,StatusCode.OK,Contants.UPDATE_SUCCESS);
 	}
 	
 	/**
@@ -95,7 +96,7 @@ public class ReplyController {
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
 		replyService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
+		return new Result(true,StatusCode.OK,Contants.DELETE_SUCCESS);
 	}
 	
 }

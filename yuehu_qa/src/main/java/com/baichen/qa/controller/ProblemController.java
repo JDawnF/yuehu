@@ -1,5 +1,6 @@
 package com.baichen.qa.controller;
 
+import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
@@ -32,7 +33,7 @@ public class ProblemController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
-        return new Result(true, StatusCode.OK, "查询成功", problemService.findAll());
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, problemService.findAll());
     }
 
     /**
@@ -43,7 +44,7 @@ public class ProblemController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result findById(@PathVariable String id) {
-        return new Result(true, StatusCode.OK, "查询成功", problemService.findById(id));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, problemService.findById(id));
     }
 
 
@@ -58,7 +59,7 @@ public class ProblemController {
     @RequestMapping(value = "/search/{page}/{size}", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<Problem> pageList = problemService.findSearch(searchMap, page, size);
-        return new Result(true, StatusCode.OK, "查询成功", new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
     }
 
     /**
@@ -69,7 +70,7 @@ public class ProblemController {
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap) {
-        return new Result(true, StatusCode.OK, "查询成功", problemService.findSearch(searchMap));
+        return new Result(true, StatusCode.OK, Contants.SEARCH_SUCCESS, problemService.findSearch(searchMap));
     }
 
     /**
@@ -80,7 +81,7 @@ public class ProblemController {
     @RequestMapping(method = RequestMethod.POST)
     public Result add(@RequestBody Problem problem) {
         problemService.add(problem);
-        return new Result(true, StatusCode.OK, "增加成功");
+        return new Result(true, StatusCode.OK, Contants.ADD_SUCCESS);
     }
 
     /**
@@ -92,7 +93,7 @@ public class ProblemController {
     public Result update(@RequestBody Problem problem, @PathVariable String id) {
         problem.setId(id);
         problemService.update(problem);
-        return new Result(true, StatusCode.OK, "修改成功");
+        return new Result(true, StatusCode.OK, Contants.UPDATE_SUCCESS);
     }
 
     /**
@@ -103,7 +104,7 @@ public class ProblemController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
         problemService.deleteById(id);
-        return new Result(true, StatusCode.OK, "删除成功");
+        return new Result(true, StatusCode.OK, Contants.DELETE_SUCCESS);
     }
 
     /**
@@ -117,7 +118,7 @@ public class ProblemController {
     @RequestMapping(value = "/newlist/{labelid}/{page}/{size}", method = RequestMethod.GET)
     public Result newlist(@PathVariable String labelid, @PathVariable int page, @PathVariable int size) {
         Page<Problem> pageList = problemService.newlist(labelid, page, size);
-        return new Result(true, StatusCode.OK, " 最新问答", new PageResult<>(pageList.getTotalElements(), pageList.getContent()));
+        return new Result(true, StatusCode.OK, Contants.NEWEST_ANSWER, new PageResult<>(pageList.getTotalElements(), pageList.getContent()));
     }
 
     /**
@@ -131,7 +132,7 @@ public class ProblemController {
     @RequestMapping(value = "/hotlist/{labelid}/{page}/{size}", method = RequestMethod.GET)
     public Result hotlist(@PathVariable String labelid, @PathVariable int page, @PathVariable int size) {
         Page<Problem> pageList = problemService.hotList(labelid, page, size);
-        return new Result(true, StatusCode.OK, "热门问答", new PageResult<>(pageList.getTotalElements(), pageList.getContent()));
+        return new Result(true, StatusCode.OK, Contants.HOT_ANSWER, new PageResult<>(pageList.getTotalElements(), pageList.getContent()));
     }
 
     /**
@@ -142,7 +143,7 @@ public class ProblemController {
     @RequestMapping(value = "/waitlist/{labelid}/{page}/{size}", method = RequestMethod.GET)
     public Result waitlist(@PathVariable String labelid, @PathVariable int page, @PathVariable int size) {
         Page<Problem> pageList = problemService.waitList(labelid, page, size);
-        return new Result(true, StatusCode.OK, "等待回答", new PageResult<>(pageList.getTotalElements(), pageList.getContent()));
+        return new Result(true, StatusCode.OK, Contants.WAITING_ANSWER, new PageResult<>(pageList.getTotalElements(), pageList.getContent()));
     }
 
 }

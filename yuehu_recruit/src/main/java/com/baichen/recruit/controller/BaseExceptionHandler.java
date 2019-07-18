@@ -1,5 +1,6 @@
 package com.baichen.recruit.controller;
 
+import com.baichen.entity.Contants;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +17,6 @@ public class BaseExceptionHandler {
     @ResponseBody
     public Result error(Exception e) {
         e.printStackTrace();
-        return new Result(false, StatusCode.ERROR, "执行出错");
+        return new Result(false, StatusCode.ERROR, Contants.EXCUTE_FAILED);
     }
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.baichen.article.pojo.Column;
 import com.baichen.article.service.ColumnService;
+import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
@@ -36,7 +37,7 @@ public class ColumnController {
 	 */
 	@RequestMapping(method= RequestMethod.GET)
 	public Result findAll(){
-		return new Result(true, StatusCode.OK,"查询成功",columnService.findAll());
+		return new Result(true, StatusCode.OK,Contants.SEARCH_SUCCESS,columnService.findAll());
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class ColumnController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
-		return new Result(true,StatusCode.OK,"查询成功",columnService.findById(id));
+		return new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,columnService.findById(id));
 	}
 
 
@@ -60,7 +61,7 @@ public class ColumnController {
 	@RequestMapping(value="/search/{page}/{size}",method=RequestMethod.POST)
 	public Result findSearch(@RequestBody Map searchMap , @PathVariable int page, @PathVariable int size){
 		Page<Column> pageList = columnService.findSearch(searchMap, page, size);
-		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Column>(pageList.getTotalElements(), pageList.getContent()) );
+		return  new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,  new PageResult<Column>(pageList.getTotalElements(), pageList.getContent()) );
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class ColumnController {
      */
     @RequestMapping(value="/search",method = RequestMethod.POST)
     public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",columnService.findSearch(searchMap));
+        return new Result(true,StatusCode.OK,Contants.SEARCH_SUCCESS,columnService.findSearch(searchMap));
     }
 	
 	/**
@@ -80,7 +81,7 @@ public class ColumnController {
 	@RequestMapping(method=RequestMethod.POST)
 	public Result add(@RequestBody Column column  ){
 		columnService.add(column);
-		return new Result(true,StatusCode.OK,"增加成功");
+		return new Result(true,StatusCode.OK,Contants.ADD_SUCCESS);
 	}
 	
 	/**
@@ -91,7 +92,7 @@ public class ColumnController {
 	public Result update(@RequestBody Column column, @PathVariable String id ){
 		column.setId(id);
 		columnService.update(column);		
-		return new Result(true,StatusCode.OK,"修改成功");
+		return new Result(true,StatusCode.OK, Contants.UPDATE_SUCCESS);
 	}
 	
 	/**
@@ -101,7 +102,7 @@ public class ColumnController {
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
 		columnService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
+		return new Result(true,StatusCode.OK,Contants.DELETE_SUCCESS);
 	}
 	
 }
