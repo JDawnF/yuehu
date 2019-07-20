@@ -72,7 +72,7 @@ public class SpitController {
         String flag = (String) redisTemplate.opsForValue().get("thumbup_" + userid + "_" + id);
         if (flag != null) {
             //点赞过
-            return new Result(false, StatusCode.REPEATE_ERROR, Contants.O);
+            return new Result(false, StatusCode.REPEATE_ERROR, Contants.OVER_THUMBUP);
         }
 
         spitService.thumbup(id);
