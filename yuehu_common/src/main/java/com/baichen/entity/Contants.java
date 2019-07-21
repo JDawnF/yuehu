@@ -21,4 +21,9 @@ public class Contants {
     public static final String WAITING_ANSWER="等待回答";
     public static final String NEWEST_ANSWER="最新回答";
     public static final String NEW_RECRUIT="最新职位";
+    public static final String SEND_SUCCESS="发送成功";
+    public static final String UPDATE_FOLLOW_SUCCESS="更新关注数成功";
+    public static final String REGISTER_SUCCESS="注册成功";
+    public static final String LOGIN_SUCCESS="登录成功";
+    public static final String LOGIN_FAILED="登录失败";
 }
