@@ -17,6 +17,7 @@
         <module>yuehu_spit</module>
         <module>yuehu_search</module>
         <module>yuehu_user</module>
+        <module>yuehu_sms</module>
     </modules>
     <packaging>pom</packaging>
 
