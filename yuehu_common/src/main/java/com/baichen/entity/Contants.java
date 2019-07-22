@@ -26,4 +26,6 @@ public class Contants {
     public static final String REGISTER_SUCCESS="注册成功";
     public static final String LOGIN_SUCCESS="登录成功";
     public static final String LOGIN_FAILED="登录失败";
+    public static final String EMPTY_SMSCODE="请输入验证码";
+    public static final String WRONG_SMSCODE="验证码错误";
 }
