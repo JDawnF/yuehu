@@ -208,7 +208,7 @@ public class UserService {
         System.out.println("验证码：" + code);
 
         //保存到redis中，10分钟过期
-        redisTemplate.opsForValue().set("smsCode_" + mobile, code, 2, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("smsCode_" + mobile, code, 10, TimeUnit.MINUTES);
 
         Map<String, String> map = new HashMap<>();
         map.put("mobile", mobile);

@@ -136,6 +136,13 @@ public class UserController {
      */
     @RequestMapping(value = "/register/{code}", method = RequestMethod.POST)
     public Result register(@PathVariable String code, @RequestBody User user) {
+        // 得到缓存中的验证码
+        String smsCode = (String) redisTemplate.opsForValue().get("smsCode_" + user.getMobile());
+            if (smsCode.isEmpty()) {
+            return new Result(false, StatusCode.ERROR, Contants.EMPTY_SMSCODE);
+        }
+        if (!smsCode.equals(code))
+            return new Result(false, StatusCode.ERROR, Contants.WRONG_SMSCODE);
         userService.add(code, user);
         return new Result(true, StatusCode.OK, Contants.REGISTER_SUCCESS);
     }
@@ -162,25 +169,27 @@ public class UserController {
 
     /**
      * 更新关注数
+     *
      * @param userid
      * @param x
      * @return
      */
-    @RequestMapping(value = "/updateFollowcount/{userid}/{x}",method = RequestMethod.PUT)
-    public Result updateFollowcount(@PathVariable String userid,@PathVariable int x){
-        userService.updateFollowcount(userid,x);
-        return new Result(true,StatusCode.OK, Contants.UPDATE_FOLLOW_SUCCESS);
+    @RequestMapping(value = "/updateFollowcount/{userid}/{x}", method = RequestMethod.PUT)
+    public Result updateFollowcount(@PathVariable String userid, @PathVariable int x) {
+        userService.updateFollowcount(userid, x);
+        return new Result(true, StatusCode.OK, Contants.UPDATE_FOLLOW_SUCCESS);
     }
 
     /**
      * 更新关注数
+     *
      * @param userid
      * @param x
      * @return
      */
-    @RequestMapping(value = "/updateFanswcount/{userid}/{x}",method = RequestMethod.PUT)
-    public Result updateFanswcount(@PathVariable String userid,@PathVariable int x){
-        userService.updateFanswcount(userid,x);
-        return new Result(true,StatusCode.OK,Contants.UPDATE_FOLLOW_SUCCESS);
+    @RequestMapping(value = "/updateFanswcount/{userid}/{x}", method = RequestMethod.PUT)
+    public Result updateFanswcount(@PathVariable String userid, @PathVariable int x) {
+        userService.updateFanswcount(userid, x);
+        return new Result(true, StatusCode.OK, Contants.UPDATE_FOLLOW_SUCCESS);
     }
 }
