@@ -32,6 +32,7 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
     /**
      * 查询全部数据
      *
@@ -122,9 +123,8 @@ public class AdminController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result login(@RequestBody Map<String, String> map) {
-        Admin admin = adminService.login(map);
+        Admin admin = adminService.findByLoginnameAndPassword(map.get("loginname"), map.get("password"));
         if (admin != null) {
-
             return new Result(true, StatusCode.OK, Contants.LOGIN_SUCCESS);
         }
         return new Result(false, StatusCode.ACCESS_ERROR, Contants.LOGIN_FAILED);

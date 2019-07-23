@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -31,6 +32,9 @@ public class AdminService {
 
     @Autowired
     private IdWorker idWorker;
+
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     /**
      * 查询全部列表
@@ -84,7 +88,10 @@ public class AdminService {
      * @param admin
      */
     public void add(Admin admin) {
-        admin.setId(idWorker.nextId() + "");
+        admin.setId(idWorker.nextId() + "");        // 主键值
+        //密码加密
+        String newpassword = encoder.encode(admin.getPassword());//加密后的密码
+        admin.setPassword(newpassword);
         admin.setState("0");
         adminDao.save(admin);
     }
@@ -146,6 +153,7 @@ public class AdminService {
 
     /**
      * 登录
+     *
      * @param map
      * @return
      */
@@ -154,5 +162,19 @@ public class AdminService {
         String password = map.get("password");
         Admin admin = adminDao.findByLoginname(loginname);
         return admin;
+    }
+
+    /**
+     * 根据登陆名和密码查询 * @param loginname
+     *
+     * @param password
+     * @return
+     */
+    public Admin findByLoginnameAndPassword(String loginname, String password) {
+        Admin admin = adminDao.findByLoginname(loginname);
+        if (admin != null && encoder.matches(password, admin.getPassword()))
+            return admin;
+        else
+            return null;
     }
 }
