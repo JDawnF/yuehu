@@ -1,5 +1,6 @@
 package com.baichen.user.service;
 
+import com.baichen.entity.Contants;
 import com.baichen.user.dao.UserDao;
 import com.baichen.user.pojo.User;
 import com.baichen.util.IdWorker;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -48,6 +50,9 @@ public class UserService {
     // 短信平台模板id
     @Value("${templateId}")
     private String templateId;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     /**
      * 查询全部列表
@@ -113,12 +118,15 @@ public class UserService {
                 user.setRegdate(new Date());
                 user.setUpdatedate(new Date());
                 user.setLastdate(new Date());
+                //密码加密
+                String newpassword = encoder.encode(user.getPassword());//加密后的
+                user.setPassword(newpassword);
                 userDao.save(user);
             } else {
-                throw new RuntimeException("验证码不正确");
+                throw new RuntimeException(Contants.WRONG_SMSCODE);
             }
         } else {
-            throw new RuntimeException("请获取验证码");
+            throw new RuntimeException(Contants.EMPTY_SMSCODE);
         }
     }
 
@@ -229,6 +237,21 @@ public class UserService {
     public User login(String mobile, String password) {
         User user = userDao.findByMobile(mobile);
         return user;
+    }
+
+    /**
+     * 根据手机号和密码查询用户 * @param mobile
+     *
+     * @param password
+     * @return
+     */
+    public User findByMobileAndPassword(String mobile, String password) {
+        User user = userDao.findByMobile(mobile);
+        if (user != null && encoder.matches(password, user.getPassword())) {
+            return user;
+        } else {
+            return null;
+        }
     }
 
     /**

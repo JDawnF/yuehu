@@ -138,7 +138,7 @@ public class UserController {
     public Result register(@PathVariable String code, @RequestBody User user) {
         // 得到缓存中的验证码
         String smsCode = (String) redisTemplate.opsForValue().get("smsCode_" + user.getMobile());
-            if (smsCode.isEmpty()) {
+        if (smsCode.isEmpty()) {
             return new Result(false, StatusCode.ERROR, Contants.EMPTY_SMSCODE);
         }
         if (!smsCode.equals(code))
@@ -153,19 +153,19 @@ public class UserController {
      * @param user
      * @return
      */
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public Result login(@RequestBody User user) {
-//        User loginUser = userService.login(user.getMobile(), user.getPassword());
-//        if (loginUser != null) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public Result login(@RequestBody User user) {
+        User loginUser = userService.login(user.getMobile(), user.getPassword());
+        if (loginUser != null) {
 //            String token = jwtUtil.createJWT(loginUser.getId(), loginUser.getMobile(), "user");
 //            HashMap<String, String> map = new HashMap<>();
-//            map.put("name",loginUser.getMobile());
-//            map.put("token",token);
-//
-//            return new Result(true, StatusCode.OK, "登录成功",map);
-//        }
-//        return new Result(false, StatusCode.USER_PASS_ERROR, "登录失败，用户名或密码错误");
-//    }
+//            map.put("name", loginUser.getMobile());
+//            map.put("token", token);
+
+            return new Result(true, StatusCode.OK, Contants.LOGIN_SUCCESS);
+        }
+        return new Result(false, StatusCode.LOGIN_ERROR, Contants.LOGIN_FAILED);
+    }
 
     /**
      * 更新关注数
