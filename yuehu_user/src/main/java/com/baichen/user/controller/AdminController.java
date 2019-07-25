@@ -33,6 +33,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     /**
      * 查询全部数据
      *
@@ -125,7 +128,12 @@ public class AdminController {
     public Result login(@RequestBody Map<String, String> map) {
         Admin admin = adminService.findByLoginnameAndPassword(map.get("loginname"), map.get("password"));
         if (admin != null) {
-            return new Result(true, StatusCode.OK, Contants.LOGIN_SUCCESS);
+            // 生成token
+            String token = jwtUtil.createJWT(admin.getId(), admin.getLoginname(), "admin");
+            Map loginmap = new HashMap();
+            loginmap.put("token", token);
+            loginmap.put("name", admin.getLoginname());//登陆名
+            return new Result(true, StatusCode.OK, Contants.LOGIN_SUCCESS,loginmap);
         }
         return new Result(false, StatusCode.ACCESS_ERROR, Contants.LOGIN_FAILED);
     }

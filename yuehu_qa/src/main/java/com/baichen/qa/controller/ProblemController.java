@@ -6,16 +6,18 @@ import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
 import com.baichen.qa.pojo.Problem;
 import com.baichen.qa.service.ProblemService;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
  * 控制器层
  *
- * @author  baichen
+ * @author baichen
  */
 @RestController
 @CrossOrigin
@@ -25,6 +27,8 @@ public class ProblemController {
     @Autowired
     private ProblemService problemService;
 
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * 查询全部数据
@@ -80,6 +84,11 @@ public class ProblemController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public Result add(@RequestBody Problem problem) {
+        Claims claims = (Claims) request.getAttribute("user_claims");
+        if (claims == null) {
+            return new Result(false, StatusCode.ACCESS_ERROR, Contants.ACCESS_FAILED);
+        }
+        problem.setUserid(claims.getId());
         problemService.add(problem);
         return new Result(true, StatusCode.OK, Contants.ADD_SUCCESS);
     }
@@ -137,6 +146,7 @@ public class ProblemController {
 
     /**
      * 根据标签ID查询等待回答列表
+     *
      * @param labelid
      * @return
      */

@@ -12,3 +12,6 @@ spring:
     database: MySQL
     show-sql: true
     generate-ddl: true
+jwt:
+  config:
+     key: baichen

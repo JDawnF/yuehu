@@ -5,19 +5,18 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 /**
- * Created by Administrator on 2018/4/11.
+ * JWT工具类
  */
 @ConfigurationProperties("jwt.config")
 public class JwtUtil {
 
     private String key ;
 
-    private long ttl ;//一个小时
+    private long ttl ;//失效时间，一个小时
 
     public String getKey() {
         return key;
@@ -36,10 +35,11 @@ public class JwtUtil {
     }
 
     /**
-     * 生成JWT
+     * 生成token
      *
      * @param id
      * @param subject
+     * @param roles 角色
      * @return
      */
     public String createJWT(String id, String subject, String roles) {
@@ -56,7 +56,7 @@ public class JwtUtil {
     }
 
     /**
-     * 解析JWT
+     * 解析token
      * @param jwtStr
      * @return
      */

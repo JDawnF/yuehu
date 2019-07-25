@@ -6,6 +6,8 @@ import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
 import com.baichen.user.pojo.User;
 import com.baichen.user.service.UserService;
+import com.baichen.util.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -33,6 +35,9 @@ public class UserController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     /**
      * 查询全部数据
@@ -111,6 +116,11 @@ public class UserController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
+        // 封装了一个拦截器，在里面做过滤
+        Claims claims = (Claims) request.getAttribute("admin_claims");
+        if (claims == null) {
+            return new Result(false, StatusCode.ACCESS_ERROR, Contants.AUTH_NOT_ENOUGH);
+        }
         userService.deleteById(id);
         return new Result(true, StatusCode.OK, Contants.DELETE_SUCCESS);
     }
@@ -149,20 +159,21 @@ public class UserController {
 
     /**
      * 用户登录
-     *
+     * 用户登陆签发 JWT
      * @param user
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result login(@RequestBody User user) {
         User loginUser = userService.login(user.getMobile(), user.getPassword());
-        if (loginUser != null) {
-//            String token = jwtUtil.createJWT(loginUser.getId(), loginUser.getMobile(), "user");
-//            HashMap<String, String> map = new HashMap<>();
-//            map.put("name", loginUser.getMobile());
-//            map.put("token", token);
+        if (loginUser != null) {    // 用户不为空
+            String token = jwtUtil.createJWT(loginUser.getId(), loginUser.getMobile(), "user");
+            HashMap<String, String> map = new HashMap<>();
+            map.put("name", loginUser.getLoginName());
+            map.put("token", token);
+            map.put("avatar",user.getAvatar());//头像
 
-            return new Result(true, StatusCode.OK, Contants.LOGIN_SUCCESS);
+            return new Result(true, StatusCode.OK, Contants.LOGIN_SUCCESS,map);
         }
         return new Result(false, StatusCode.LOGIN_ERROR, Contants.LOGIN_FAILED);
     }
