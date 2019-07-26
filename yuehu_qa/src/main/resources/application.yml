@@ -15,3 +15,7 @@ spring:
 jwt:
   config:
      key: baichen
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://localhost:6868/eureka
