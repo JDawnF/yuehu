@@ -21,6 +21,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -53,6 +54,8 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * 查询全部列表
@@ -136,15 +139,41 @@ public class UserService {
      * @param user
      */
     public void update(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
     /**
-     * 删除
+     * 删除,必须由admin角色才能删除,将判断请求头和claims抽取出来做成一个拦截器JwtFilter
      *
      * @param id
      */
     public void deleteById(String id) {
+        //判断是否是管理员admin
+        /*//从请求获取头信息 Authorization
+        String authorization = request.getHeader("Authorization");
+        if (authorization == null){
+            return new Result(false,StatusCode.ACCESS_ERROR,"权限不足 authorization==null");
+        }
+
+        //如果authorization的值不以Bearer开头
+        if(!authorization.startsWith("Bearer")){
+            return new Result(false,StatusCode.ACCESS_ERROR,"权限不足 不以Bearer开头");
+        }
+
+        //截取token字符串
+        String token = authorization.substring(7);
+
+        //解析token
+        Claims claims = jwtUtil.parseJWT(token);
+
+        if(claims==null){
+            return new Result(false,StatusCode.ACCESS_ERROR,"权限不足 claims==null");
+        }
+
+        if (!"admin".equals(claims.get("roles"))){
+            return new Result(false,StatusCode.ACCESS_ERROR,"权限不足 roles");
+        }*/
         userDao.deleteById(id);
     }
 
@@ -236,7 +265,10 @@ public class UserService {
      */
     public User login(String mobile, String password) {
         User user = userDao.findByMobile(mobile);
-        return user;
+        // 注意顺序不能写反
+        if (user != null && encoder.matches(password,user.getPassword()))
+            return user;
+        return null;
     }
 
     /**

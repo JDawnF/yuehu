@@ -116,7 +116,7 @@ public class UserController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
-        // 封装了一个拦截器，在里面做过滤
+        // 封装了一个拦截器，在里面做判断，设置roles，这里取出当前角色即可
         Claims claims = (Claims) request.getAttribute("admin_claims");
         if (claims == null) {
             return new Result(false, StatusCode.ACCESS_ERROR, Contants.AUTH_NOT_ENOUGH);

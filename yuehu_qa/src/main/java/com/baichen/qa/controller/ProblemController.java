@@ -4,6 +4,7 @@ import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
+import com.baichen.qa.LabelClient;
 import com.baichen.qa.pojo.Problem;
 import com.baichen.qa.service.ProblemService;
 import io.jsonwebtoken.Claims;
@@ -29,6 +30,9 @@ public class ProblemController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private LabelClient labelClient;
 
     /**
      * 查询全部数据
@@ -156,4 +160,10 @@ public class ProblemController {
         return new Result(true, StatusCode.OK, Contants.WAITING_ANSWER, new PageResult<>(pageList.getTotalElements(), pageList.getContent()));
     }
 
+    // 根据id查找标签
+    @RequestMapping(value = "/label/{labelid}")
+    public Result findLabelById(@PathVariable  String labelid){
+        Result result = labelClient.findById(labelid);
+        return result;
+    }
 }

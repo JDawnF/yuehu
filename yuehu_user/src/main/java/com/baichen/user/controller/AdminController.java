@@ -128,7 +128,7 @@ public class AdminController {
     public Result login(@RequestBody Map<String, String> map) {
         Admin admin = adminService.findByLoginnameAndPassword(map.get("loginname"), map.get("password"));
         if (admin != null) {
-            // 生成token
+            // 生成token，这里把roles写死了，后面要换成具体对应的角色
             String token = jwtUtil.createJWT(admin.getId(), admin.getLoginname(), "admin");
             Map loginmap = new HashMap();
             loginmap.put("token", token);

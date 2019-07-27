@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * JWT工具类
  */
-@ConfigurationProperties("jwt.config")
+@ConfigurationProperties("jwt.config")      // 获取配置中的config对应的属性
 public class JwtUtil {
 
     private String key ;
@@ -62,7 +62,7 @@ public class JwtUtil {
      */
     public Claims parseJWT(String jwtStr){
         return  Jwts.parser()
-                .setSigningKey(key)
+                .setSigningKey(key)     // 盐
                 .parseClaimsJws(jwtStr)
                 .getBody();
     }

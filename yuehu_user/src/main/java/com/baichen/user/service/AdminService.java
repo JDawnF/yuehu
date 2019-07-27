@@ -161,12 +161,16 @@ public class AdminService {
         String loginname = map.get("loginname");
         String password = map.get("password");
         Admin admin = adminDao.findByLoginname(loginname);
-        return admin;
+        // 比较数据库中用户名密码和前端传过来的用户密码是否一致
+        if (loginname != null && encoder.matches(admin.getPassword(), password))
+            return admin;
+        return null;
     }
 
     /**
-     * 根据登陆名和密码查询 * @param loginname
+     * 根据登陆名和密码查询
      *
+     * @param loginname
      * @param password
      * @return
      */

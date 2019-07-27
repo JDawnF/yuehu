@@ -28,6 +28,8 @@ public class Contants {
     public static final String LOGIN_FAILED="登录失败,用户名或密码错误";
     public static final String EMPTY_SMSCODE="请输入验证码";
     public static final String WRONG_SMSCODE="验证码错误";
-    public static final String AUTH_NOT_ENOUGH="验证码错误";
+    public static final String AUTH_NOT_ENOUGH="权限不足";
     public static final String ACCESS_FAILED="无权访问";
+    public static final String OPERATE_SUCCESS="操作成功";
+    public static final String ALREADY_ADDED="已经添加此好友";
 }
