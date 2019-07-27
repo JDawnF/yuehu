@@ -1,0 +1,20 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: yuehu‐friend #指定服务名
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3307/tensquare_friend?characterEncoding=utf‐8
+    username: root
+    password: 123456
+  jpa:
+    database: MySQL
+    show‐sql: true
+  jwt:
+    config:
+      key: baichen
+  eureka:
+    client:
+      service‐url:
+        defaultZone: http://localhost:6868/eureka

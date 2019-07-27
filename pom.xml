@@ -19,6 +19,7 @@
         <module>yuehu_user</module>
         <module>yuehu_sms</module>
         <module>yuehu_eureka</module>
+        <module>yuehu_friend</module>
     </modules>
     <packaging>pom</packaging>
 
