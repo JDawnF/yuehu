@@ -2,7 +2,7 @@ server:
   port: 9006
 spring:
   application:
-    name: yuehu_spit    #指定服务名
+    name: yuehu-spit    #指定服务名
   data:
     mongodb:
       host: localhost

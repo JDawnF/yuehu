@@ -1,4 +1,4 @@
-package com.baichen.user;
+package com.baichen.user.config;
 
 import com.baichen.user.filter.JwtInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;

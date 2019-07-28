@@ -2,7 +2,7 @@ server:
   port: 9007
 spring:
   application:
-    name: yuehu_search    #指定服务名
+    name: yuehu-search    #指定服务名
   data:
     elasticsearch:
       cluster-nodes: 127.0.0.1:9300

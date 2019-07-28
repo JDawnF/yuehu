@@ -5,16 +5,17 @@ spring:
     name: yuehu‐friend #指定服务名
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3307/tensquare_friend?characterEncoding=utf‐8
+    url: jdbc:mysql://127.0.0.1:3307/tensquare_friend?characterEncoding=utf-8
     username: root
     password: 123456
   jpa:
     database: MySQL
     show‐sql: true
-  jwt:
-    config:
-      key: baichen
-  eureka:
-    client:
-      service‐url:
-        defaultZone: http://localhost:6868/eureka
+jwt:
+  config:
+    key: baichen
+    ttl: 360000
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://localhost:6868/eureka

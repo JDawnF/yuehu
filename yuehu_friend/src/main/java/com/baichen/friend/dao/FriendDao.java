@@ -22,6 +22,7 @@ public interface FriendDao extends JpaRepository<Friend, String> {
      * @param friendid
      */
     @Modifying
+    // 数字表示的是方法中参数对应的位置
     @Query("update Friend f set f.islike=?3 where f.userid=?1 and f.friendid=?2")
     void updateLike(String userid, String friendid, String islike);
 }

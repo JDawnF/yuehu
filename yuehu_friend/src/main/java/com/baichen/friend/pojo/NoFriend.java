@@ -1,5 +1,6 @@
 package com.baichen.friend.pojo;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -12,23 +13,13 @@ import java.io.Serializable;
  * @Description: 实体类
  */
 @Entity
-@Table(name="tb_friend")
-@IdClass(Friend.class)      // 复合组件映射
-public class Friend implements Serializable {
+@Table(name="tb_nofriend")
+@IdClass(NoFriend.class)      // 复合组件映射
+public class NoFriend implements Serializable {
     @Id
     private String userid;      // 用户id
     @Id
     private String friendid;    // 关注的用户id
-
-    private String islike;
-
-    public String getIslike() {
-        return islike;
-    }
-
-    public void setIslike(String islike) {
-        this.islike = islike;
-    }
 
     public String getUserid() {
         return userid;

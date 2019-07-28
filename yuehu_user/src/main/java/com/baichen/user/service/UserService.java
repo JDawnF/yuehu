@@ -139,7 +139,6 @@ public class UserService {
      * @param user
      */
     public void update(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
