@@ -12,9 +12,8 @@ spring:
     database: MySQL
     show‐sql: true
 jwt:
-  config:
-    key: baichen
-    ttl: 360000
+  key: baichen
+  ttl: 360000
 eureka:
   client:
     service‐url:

@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @author baichen
  */
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -265,7 +266,7 @@ public class UserService {
     public User login(String mobile, String password) {
         User user = userDao.findByMobile(mobile);
         // 注意顺序不能写反
-        if (user != null && encoder.matches(password,user.getPassword()))
+        if (user != null && encoder.matches(password, user.getPassword()))
             return user;
         return null;
     }
@@ -285,25 +286,9 @@ public class UserService {
         }
     }
 
-    /**
-     * 更新关注数
-     *
-     * @param userid
-     * @param x
-     */
-    @Transactional
-    public void updateFollowcount(String userid, int x) {
-        userDao.updateFollowcount(userid, x);
-    }
-
-    /**
-     * 更新粉丝数数
-     *
-     * @param userid
-     * @param x
-     */
-    @Transactional
-    public void updateFanswcount(String userid, int x) {
-        userDao.updateFanswcount(userid, x);
+    // 更新粉丝数和关注数
+    public void updateFansCountAndFollowCount(int x, String userid, String friendid) {
+        userDao.updateFanswcount(x, friendid);
+        userDao.updateFollowcount(x, userid);
     }
 }

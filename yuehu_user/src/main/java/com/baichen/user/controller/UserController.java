@@ -179,28 +179,10 @@ public class UserController {
     }
 
     /**
-     * 更新关注数
-     *
-     * @param userid
-     * @param x
-     * @return
+     * 更新好友粉丝数和用户关注数
      */
-    @RequestMapping(value = "/updateFollowcount/{userid}/{x}", method = RequestMethod.PUT)
-    public Result updateFollowcount(@PathVariable String userid, @PathVariable int x) {
-        userService.updateFollowcount(userid, x);
-        return new Result(true, StatusCode.OK, Contants.UPDATE_FOLLOW_SUCCESS);
-    }
-
-    /**
-     * 更新关注数
-     *
-     * @param userid
-     * @param x
-     * @return
-     */
-    @RequestMapping(value = "/updateFanswcount/{userid}/{x}", method = RequestMethod.PUT)
-    public Result updateFanswcount(@PathVariable String userid, @PathVariable int x) {
-        userService.updateFanswcount(userid, x);
-        return new Result(true, StatusCode.OK, Contants.UPDATE_FOLLOW_SUCCESS);
+    @PutMapping(value = "{userid}/{friendid}/{x}")
+    public void updateFansCountAndFollowCount(@PathVariable String userid,@PathVariable String friendid,@PathVariable int x){
+        userService.updateFansCountAndFollowCount(x,userid,friendid);
     }
 }

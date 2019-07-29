@@ -1,7 +1,9 @@
 package com.baichen.friend.service;
 
 import com.baichen.friend.dao.FriendDao;
+import com.baichen.friend.dao.NoFriendDao;
 import com.baichen.friend.pojo.Friend;
+import com.baichen.friend.pojo.NoFriend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-
 public class FriendService {
     @Autowired
     private FriendDao friendDao;
+    @Autowired
+    private NoFriendDao noFriendDao;
 
     public int addFriend(String userid, String friendid) {
         //判断用户是否已经添加了这个好友，如果count大于0，即已经添加过,直接返回0
@@ -35,5 +38,33 @@ public class FriendService {
             friendDao.updateLike(friendid, userid, "1");
         }
         return 1;
+    }
+
+    /**
+     * 向不喜欢列表中添加记录
+     *
+     * @param userid
+     * @param friendid
+     */
+    public void addNoFriend(String userid, String friendid) {
+        NoFriend noFriend = new NoFriend();
+        noFriend.setUserid(userid);
+        noFriend.setFriendid(friendid);
+        noFriendDao.save(noFriend);
+    }
+
+    /**
+     * 删除好友
+     *
+     * @param userid
+     * @param friendid
+     */
+    public void deleteFriend(String userid, String friendid) {
+        // 删除好友表中userid到friendid这条数据
+        friendDao.deleteFriend(userid, friendid);
+        // 更新好友表中userid到friendid这条数据
+        friendDao.updateLike(friendid, userid, "0");
+//        非好友表中添加数据
+        addNoFriend(userid, friendid);//向不喜欢表中添加记录
     }
 }

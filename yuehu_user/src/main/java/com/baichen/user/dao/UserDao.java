@@ -8,33 +8,36 @@ import org.springframework.data.jpa.repository.Query;
 
 /**
  * 数据访问接口
- * @author baichen
  *
+ * @author baichen
  */
-public interface UserDao extends JpaRepository<User,String>,JpaSpecificationExecutor<User>{
+public interface UserDao extends JpaRepository<User, String>, JpaSpecificationExecutor<User> {
 
     /**
      * 根据手机号查询用户
+     *
      * @param mobile
      * @return
      */
     User findByMobile(String mobile);
 
     /**
-     * 更新关注数
-     * @param userid
+     * 更新粉丝数
+     *
+     * @param friendid
      * @param x
      */
     @Modifying
-    @Query("update User u set u.followcount = u.followcount + ?2 where u.id = ?1")
-    void updateFanswcount(String userid, int x);
+    @Query(value = "update tb_user set followcount = followcount +? where id = ?", nativeQuery = true)
+    void updateFanswcount(int x, String friendid);
 
     /**
-     * 更新粉丝数
+     * 更新关注数
+     *
      * @param userid
      * @param x
      */
     @Modifying
-    @Query("update User u set u.fanscount = u.fanscount + ?2 where u.id = ?1")
-    void updateFollowcount(String userid, int x);
+    @Query("update User u set u.fanscount = u.fanscount + ?1 where u.id = ?2")
+    void updateFollowcount(int x, String userid);
 }
