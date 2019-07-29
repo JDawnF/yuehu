@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
 /**
  * JWT工具类
  */
-@ConfigurationProperties("jwt.config")      // 获取配置中的config对应的属性
+@ConfigurationProperties("jwt")      // 获取配置中的config对应的属性
 public class JwtUtil {
 
     private String key ;

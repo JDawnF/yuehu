@@ -32,5 +32,8 @@ public class Contants {
     public static final String ACCESS_FAILED="无权访问";
     public static final String OPERATE_SUCCESS="操作成功";
     public static final String ALREADY_ADDED="已经添加此好友";
+    public static final String ADD_FRIEND_SUCCESS="添加好友成功";
     public static final String ARGS_ILLGAL="参数异常";
+    public static final String ADD_NOFRIEND_SUCCESS ="添加非好友成功";
+    public static final String DELETE_FRIEND_SUCCESS ="删除好友成功";
 }
