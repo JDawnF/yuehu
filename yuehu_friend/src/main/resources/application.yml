@@ -13,7 +13,7 @@ spring:
     show‐sql: true
 jwt:
   key: baichen
-  ttl: 360000
+  ttl: 3600000
 eureka:
   client:
     service‐url:

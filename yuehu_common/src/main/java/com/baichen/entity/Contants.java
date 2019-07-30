@@ -36,4 +36,5 @@ public class Contants {
     public static final String ARGS_ILLGAL="参数异常";
     public static final String ADD_NOFRIEND_SUCCESS ="添加非好友成功";
     public static final String DELETE_FRIEND_SUCCESS ="删除好友成功";
+    public static final String OPEN_HYSTRIX="启动熔断器";
 }

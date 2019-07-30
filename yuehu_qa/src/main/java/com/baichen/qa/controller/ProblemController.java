@@ -4,7 +4,7 @@ import com.baichen.entity.Contants;
 import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
-import com.baichen.qa.LabelClient;
+import com.baichen.qa.client.LabelClient;
 import com.baichen.qa.pojo.Problem;
 import com.baichen.qa.service.ProblemService;
 import io.jsonwebtoken.Claims;

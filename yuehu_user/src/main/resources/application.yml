@@ -17,8 +17,9 @@ spring:
   rabbitmq:
     host: 127.0.0.1
 jwt:
-  key: baichen
-  ttl: 360000
+  config:
+    key: baichen
+    ttl: 3600000
 
 eureka:
   client:

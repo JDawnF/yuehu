@@ -20,6 +20,8 @@
         <module>yuehu_sms</module>
         <module>yuehu_eureka</module>
         <module>yuehu_friend</module>
+        <module>yuehu_manager</module>
+        <module>yuehu_web</module>
     </modules>
     <packaging>pom</packaging>
 
