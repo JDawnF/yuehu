@@ -11,7 +11,7 @@ zuul:
   routes:
     yuehu‐gathering: #活动
       path: /gathering/** #配置请求URL的请求规则
-      serviceId: yuehu‐gathering #指定Eureka注册中心中的服务id
+      serviceId: yuehu‐gathering #指定Eureka注册中心中的服务id，跳转的地址
     yuehu‐article: #文章
       path: /article/** #配置请求URL的请求规则
       serviceId: yuehu‐article #指定Eureka注册中心中的服务id
