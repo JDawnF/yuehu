@@ -17,7 +17,7 @@ jwt:
      key: baichen
 eureka:
   client:
-    service‐url:
+    service-url:
       defaultZone: http://localhost:6868/eureka
 # 启动hystrix熔断器
 feign:

@@ -9,5 +9,6 @@ spring:
       database: spildb
 eureka:
   client:
-    service‐url:
+    service-url:
       defaultZone: http://localhost:6868/eureka
+
