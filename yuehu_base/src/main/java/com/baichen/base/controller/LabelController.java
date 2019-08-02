@@ -7,9 +7,12 @@ import com.baichen.entity.PageResult;
 import com.baichen.entity.Result;
 import com.baichen.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +24,16 @@ import java.util.Map;
 @RestController         // 对象转成json
 @CrossOrigin
 @RequestMapping("/label")
+@RefreshScope    // 自动刷新自定义的配置
 public class LabelController {
     @Autowired
     private LabelService labelService;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @Value("${ip}")
+    private String ip;
 
     /**
      * 添加标签
@@ -44,7 +54,11 @@ public class LabelController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
-        return new Result(true, StatusCode.OK, "正常", labelService.findAll());
+        System.out.println("在码云上自定义的ip为" + ip);
+        String header = request.getHeader("Authorization");
+        System.out.println(header);
+        List<Label> list = labelService.findAll();
+        return new Result(true, StatusCode.OK, "正常", list);
     }
 
     /**

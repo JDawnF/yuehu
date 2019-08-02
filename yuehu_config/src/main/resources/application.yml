@@ -6,14 +6,13 @@ spring:
       server:
         git:
           uri: https://gitee.com/baichendongyang/yuehu_config.git
+  rabbitmq:
+    host: 127.0.0.1
 server:
   port: 12000
-eureka:
-  client:
-    service‐url:
-      defaultZone: http://localhost:6868/eureka/
-management: #暴露触发消息总线的地址
+
+management: #暴露触发消息总线的地址,用于URL中的后缀
   endpoints:
     web:
       exposure:
-        include: bus‐refresh
+        include: bus-refresh
